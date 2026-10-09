@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+@font-face { font-family: "Clash Display"; src: url("/fonts/clash-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Clash Display"; src: url("/fonts/clash-600.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Clash Display"; src: url("/fonts/clash-700.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("/fonts/satoshi-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("/fonts/satoshi-500.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("/fonts/satoshi-700.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+
+/*
+  Palette sampled from the Asura crest: violet body (#6134bf) + cyan gem as the one accent.
+  Gem is reserved for the primary CTA, focus, selection and the live dot.
+  Radius: interactive = pill, cards = 28px.
+  Z-index: canvas 0, content 10, nav 40, intro 80.
+  Dark only, by choice: the crest is a dark-native brand.
+*/
+:root {
+  --bg: #07050d;
+  --surface: #0f0b1a;
+  --surface-2: #161027;
+  --ink: #ece8f7;
+  --muted: #9b92b6;
+  --line: #231b37;
+  --violet: #9a6bff;
+  --violet-deep: #6134bf;
+  --gem: #5fe3ff;
+  --gem-ink: #03131a;
+  --glow: 97 52 191;
+  color-scheme: dark;
+}
+
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-violet: var(--violet);
+  --color-violet-deep: var(--violet-deep);
+  --color-gem: var(--gem);
+  --color-gem-ink: var(--gem-ink);
+  --font-display: "Clash Display", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
+  --radius-card: 28px;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
+body { font-family: var(--font-sans); background: var(--bg); overflow-x: clip; }
+::selection { background: var(--gem); color: var(--gem-ink); }
+:focus-visible { outline: 2px solid var(--gem); outline-offset: 3px; border-radius: 6px; }
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+/* Film grain on a fixed layer so it never repaints with scroll */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+
+/* Cursor spotlight on cards: --x/--y set from pointer position */
+.spotlight { position: relative; isolation: isolate; }
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out-expo);
+  background: radial-gradient(420px circle at var(--x, 50%) var(--y, 50%), rgb(var(--glow) / 0.28), transparent 60%);
+}
+.spotlight:hover::before { opacity: 1; }
+
+.text-glow { text-shadow: 0 0 40px rgb(var(--glow) / 0.55); }
+
+/* Hero entrance in CSS so the headline never waits on hydration */
+.rise { animation: rise 1.1s var(--ease-out-expo) both; }
+.fade-up { animation: fade-up 1s var(--ease-out-expo) both; }
+@keyframes rise { from { transform: translateY(105%); } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(16px); } }
+
+.marquee { display: flex; width: max-content; animation: marquee 40s linear infinite; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee, .rise, .fade-up { animation: none; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
+}
