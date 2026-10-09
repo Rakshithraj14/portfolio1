@@ -1,5 +1,9 @@
 # Rakshith Raj M · Portfolio
 
+![Models in production, not notebooks. Rakshith Raj M, MLOps and AI Engineer](public/og.jpg)
+
+**Live:** https://portfolio1-kappa-teal.vercel.app
+
 Personal site of Rakshith Raj M (Asura), MLOps & AI Engineer in Bengaluru.
 
 The hero is the Asura crest rebuilt from about 25k particles sampled from the logo's own pixels. It assembles on load, pushes away from the cursor, breaks into a starfield as you scroll, and re-forms at the contact section.

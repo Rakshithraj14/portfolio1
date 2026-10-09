@@ -5,6 +5,7 @@ const SHIPLOG = "https://rakshithraj14.github.io/shiplog"
 export const PROFILE = {
   name: "Rakshith Raj M",
   alias: "Asura",
+  url: "https://portfolio1-kappa-teal.vercel.app",
   role: "MLOps & AI Engineer",
   location: "Bengaluru, India",
   timeZone: "Asia/Kolkata",

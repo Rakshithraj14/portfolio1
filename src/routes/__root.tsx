@@ -2,6 +2,7 @@ import { useEffect, type ReactNode } from "react"
 import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router"
 import Lenis from "lenis"
 import css from "../styles.css?url"
+import { PROFILE } from "../lib/content"
 
 const title = "Rakshith Raj M · MLOps & AI Engineer"
 const description = "Rakshith Raj M (Asura) builds end-to-end ML and LLM systems, from training runs to monitored production. Based in Bengaluru."
@@ -14,13 +15,20 @@ export const Route = createRootRoute({
       { title },
       { name: "description", content: description },
       { name: "theme-color", content: "#07050d" },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: PROFILE.url },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-      { property: "og:image", content: "/apple-touch-icon.png" },
-      { name: "twitter:card", content: "summary" },
+      { property: "og:image", content: `${PROFILE.url}/og.jpg` },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "Models in production, not notebooks. Rakshith Raj M, MLOps and AI Engineer, beside the Asura crest." },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: `${PROFILE.url}/og.jpg` },
     ],
     links: [
       { rel: "stylesheet", href: css },
+      { rel: "canonical", href: PROFILE.url },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       { rel: "preload", href: "/fonts/clash-600.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" },
